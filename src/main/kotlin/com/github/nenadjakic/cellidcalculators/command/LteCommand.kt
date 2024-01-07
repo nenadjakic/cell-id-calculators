@@ -1,6 +1,5 @@
 package com.github.nenadjakic.cellidcalculators.command
 
-import com.github.nenadjakic.cellidcalculators.AbstractCalculator
 import com.github.nenadjakic.cellidcalculators.service.LteService
 import org.jline.utils.AttributedString
 import org.jline.utils.AttributedStyle
