@@ -11,7 +11,7 @@ import org.springframework.shell.standard.ShellOption
 
 @ShellComponent
 @ShellCommandGroup("LTE Calculator")
-class LteCommand(private val lteService: LteService) : AbstractCalculator() {
+class LteCommand(private val lteService: LteService) {
 
     @ShellMethod(value = "Calculate ECI from eNodeBId and cellId.", key = ["to-eci", "get-eci"])
     fun toEci(

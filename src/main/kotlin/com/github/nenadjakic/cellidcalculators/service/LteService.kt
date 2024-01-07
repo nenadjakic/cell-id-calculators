@@ -36,7 +36,7 @@ class LteService {
             message = "The ECI value must be lower or equal than {value}."
         ) eci: Long
     ): Pair<Int, Int> {
-        val hex = ("0".repeat(8) + eci.toString(16)).takeLast(8);
+        val hex = ("0".repeat(8) + eci.toString(16)).takeLast(8)
 
         val cellId = hex.takeLast(2).toInt(16)
         val eNodeBId = hex.take(hex.length - 2).toInt(16)
