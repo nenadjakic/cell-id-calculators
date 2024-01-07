@@ -20,10 +20,10 @@ class LteCommand(private val lteService: LteService) {
         val eci = lteService.getECI(eNodeBId, cellId)
         return AttributedString(
             "ECI: ",
-            AttributedStyle.DEFAULT.bold().foreground(AttributedStyle.GREEN)
+            AttributedStyle.DEFAULT.bold().foreground(INFO_FOREGROUND_COLOR)
         ).toAnsi() + AttributedString(
             eci.toString(), AttributedStyle.DEFAULT.foreground(
-                AttributedStyle.GREEN
+                INFO_FOREGROUND_COLOR
             )
         ).toAnsi()
     }
