@@ -1,7 +1,9 @@
 package com.github.nenadjakic.cellidcalculators.command
 
+import com.github.nenadjakic.cellidcalculators.INFO_FOREGROUND_COLOR
 import com.github.nenadjakic.cellidcalculators.service.LteService
 import org.jline.utils.AttributedString
+import org.jline.utils.AttributedStringBuilder
 import org.jline.utils.AttributedStyle
 import org.springframework.shell.standard.ShellCommandGroup
 import org.springframework.shell.standard.ShellComponent
@@ -18,22 +20,56 @@ class LteCommand(private val lteService: LteService) {
         @ShellOption(value = ["-C", "--cellid"], help = "CellId") cellId: Int
     ): String {
         val eci = lteService.getECI(eNodeBId, cellId)
-        return AttributedString(
-            "ECI: ",
-            AttributedStyle.DEFAULT.bold().foreground(INFO_FOREGROUND_COLOR)
-        ).toAnsi() + AttributedString(
-            eci.toString(), AttributedStyle.DEFAULT.foreground(
-                INFO_FOREGROUND_COLOR
+
+        return AttributedStringBuilder()
+            .append(
+                AttributedString(
+                    "ECI: ",
+                    AttributedStyle.DEFAULT.bold().foreground(INFO_FOREGROUND_COLOR)
+                )
+            ).append(
+                AttributedString(
+                    eci.toString(), AttributedStyle.DEFAULT.foreground(
+                        INFO_FOREGROUND_COLOR
+                    )
+                )
             )
-        ).toAnsi()
+            .toAnsi()
     }
 
     @ShellMethod(
-        value = "Extract ECI value to eNodeBId and CellId.",
+        value = "Extract ECI value to eNodeBId and cellId.",
         key = ["get-enodebid-cellid", "from-eci", "extract-eci"]
     )
     fun fromEci(@ShellOption(value = ["-E", "--eci"], help = "ECI") eci: Long): String {
         val x = lteService.getENodBIdAndCellId(eci)
-        return x.first.toString() + "-" + x.second.toString()
+
+        return AttributedStringBuilder()
+            .append(
+                AttributedString(
+                    "eNodeBId: ",
+                    AttributedStyle.DEFAULT.bold().foreground(INFO_FOREGROUND_COLOR)
+                )
+            ).append(
+                AttributedString(
+                    x.first.toString(), AttributedStyle.DEFAULT.foreground(
+                        INFO_FOREGROUND_COLOR
+                    )
+                )
+            )
+            .append(", ")
+            .append(
+                AttributedString(
+                    "cellId: ",
+                    AttributedStyle.DEFAULT.bold().foreground(INFO_FOREGROUND_COLOR)
+                )
+            ).append(
+                AttributedString(
+                    x.second.toString(), AttributedStyle.DEFAULT.foreground(
+                        INFO_FOREGROUND_COLOR
+                    )
+                )
+            )
+            .toAnsi()
     }
 }
